@@ -20,3 +20,6 @@ models/cache/
 
 # os
 .DS_Store
+
+# eval outputs (regenerated)
+eval/out/

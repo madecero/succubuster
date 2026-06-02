@@ -14,5 +14,9 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5",
+    "tsx": "^4.22.4"
   }
 }
