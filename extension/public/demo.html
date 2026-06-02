@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Succubuster — live demo</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { font: 14px/1.5 system-ui, sans-serif; background: #0b1218; color: #e7e9ea; margin: 0; }
+    header { position: sticky; top: 0; background: #15202b; border-bottom: 1px solid #38444d; padding: 14px 20px; z-index: 10; }
+    h1 { font-size: 18px; margin: 0 0 8px; }
+    .status { color: #8899a6; }
+    .tally { display: flex; gap: 22px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+    .tally b { font-size: 20px; }
+    .metric { color: #8899a6; }
+    .feed { max-width: 600px; margin: 0 auto; padding: 16px; }
+    .post { background: #15202b; border: 1px solid #283340; border-radius: 14px; margin-bottom: 14px; overflow: hidden; position: relative; }
+    .head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #38444d; }
+    .handle { font-weight: 700; }
+    .cap { padding: 0 14px 10px; }
+    .media { width: 100%; display: block; }
+    .truth { font-size: 11px; padding: 1px 7px; border-radius: 999px; margin-left: auto; }
+    .truth.bait { background: #5c1a2b; color: #ffb3c1; }
+    .truth.benign { background: #16323a; color: #8be9c0; }
+    .verdict { padding: 8px 14px; font-size: 12px; color: #8899a6; border-top: 1px solid #283340; display: flex; justify-content: space-between; }
+    .ok { color: #6fcf97; } .bad { color: #ff6b6b; }
+    .sb-blurred { filter: blur(24px); }
+    .sb-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .sb-card { background: rgba(11,18,24,.85); border: 1px solid #38444d; border-radius: 12px; padding: 12px 16px; text-align: center; }
+    .sb-card b { display: block; } .sb-card button { margin-top: 8px; border: 0; border-radius: 999px; background: #1d9bf0; color: #fff; padding: 6px 14px; cursor: pointer; }
+    input[type=range] { width: 200px; vertical-align: middle; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛡️ Succubuster — live on-device demo</h1>
+    <div class="status" id="status">loading model…</div>
+    <div class="tally" id="tally" style="display:none">
+      <span>sensitivity <input type="range" id="sens" min="0" max="100" value="60" /> <span id="sensv">60</span></span>
+      <span class="metric">precision <b id="prec">–</b></span>
+      <span class="metric">recall <b id="rec">–</b></span>
+      <span class="metric">F1 <b id="f1">–</b></span>
+      <span class="metric">AUC <b id="auc">–</b></span>
+      <span class="metric">hidden <b id="hid">0</b></span>
+    </div>
+  </header>
+  <div class="feed" id="feed"></div>
+  <script type="module" src="demo.js"></script>
+</body>
+</html>

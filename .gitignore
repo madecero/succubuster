@@ -23,3 +23,6 @@ models/cache/
 
 # eval outputs (regenerated)
 eval/out/
+
+# demo images (regenerated via fetch-demo-images.mjs)
+extension/demo-images/

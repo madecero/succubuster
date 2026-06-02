@@ -1,0 +1,11 @@
+{
+  "backbone": "Xenova/clip-vit-base-patch32",
+  "embed_dim": 512,
+  "head": "logreg",
+  "C": 0.5,
+  "class_weight": "balanced",
+  "samples": 49,
+  "positives": 16,
+  "cv_auc": 0.9223,
+  "opset": 18
+}

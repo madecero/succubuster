@@ -39,13 +39,20 @@ const builds = [
   esm('src/background/index.ts', `${dist}/background.js`),
   esm('src/offscreen/index.ts', `${dist}/offscreen.js`),
   iife('src/options/index.ts', `${dist}/options.js`),
+  esm('src/demo/index.ts', `${dist}/demo.js`),
 ];
 
 async function copyStatic() {
   await cp(path.join(root, 'manifest.json'), path.join(dist, 'manifest.json'));
-  for (const f of ['offscreen.html', 'options.html']) {
+  for (const f of ['offscreen.html', 'options.html', 'demo.html']) {
     await cp(path.join(root, 'public', f), path.join(dist, f));
   }
+
+  // Demo assets: the labeled manifest + locally-cached images (served same-origin).
+  const manifestSrc = path.join(root, '..', 'eval', 'data', 'manifest.json');
+  if (existsSync(manifestSrc)) await cp(manifestSrc, path.join(dist, 'eval-manifest.json'));
+  const demoImgs = path.join(root, 'demo-images');
+  if (existsSync(demoImgs)) await cp(demoImgs, path.join(dist, 'demo-images'), { recursive: true });
 
   // onnxruntime-web wasm/mjs runtime, referenced at runtime via wasmPaths.
   // (Its package.json "exports" hides ./package.json, so locate dist by path.)
