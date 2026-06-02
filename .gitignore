@@ -1,0 +1,22 @@
+node_modules/
+dist/
+*.zip
+.env
+.env.*
+*.log
+
+# python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# model + data artifacts (kept out of git; large/binary)
+eval/data/images/
+**/*.onnx
+**/*.safetensors
+**/*.bin
+models/cache/
+
+# os
+.DS_Store

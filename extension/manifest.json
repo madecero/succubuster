@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Succubuster",
+  "version": "0.1.0",
+  "description": "Hides sexually-suggestive engagement-bait from your X feed. Fully on-device and private — no data leaves your browser.",
+  "permissions": ["storage", "offscreen"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://pbs.twimg.com/*",
+    "https://*.twimg.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Succubuster — click for options"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; worker-src 'self' blob:;"
+  }
+}

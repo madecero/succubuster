@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Succubuster — Settings</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      font: 14px/1.5 system-ui, sans-serif; background: #15202b; color: #e7e9ea;
+      margin: 0; padding: 32px; max-width: 640px;
+    }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    .sub { color: #8899a6; margin: 0 0 24px; }
+    .card { background: #1c2732; border: 1px solid #38444d; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0; }
+    .row + .row { border-top: 1px solid #243340; }
+    label { font-weight: 600; }
+    .hint { color: #8899a6; font-weight: 400; font-size: 13px; }
+    input[type="range"] { width: 220px; }
+    .pill { background: #243340; border-radius: 999px; padding: 2px 10px; font-size: 12px; color: #8899a6; }
+    button { background: #1d9bf0; color: #fff; border: 0; border-radius: 999px; padding: 8px 16px; font-weight: 600; cursor: pointer; }
+    button.secondary { background: transparent; border: 1px solid #38444d; color: #e7e9ea; }
+    .stat { font-size: 28px; font-weight: 700; }
+    .stats { display: flex; gap: 32px; }
+    #consent { display: none; }
+    #consent.show { display: block; }
+    .allowlist { white-space: pre-wrap; color: #8899a6; font-size: 13px; }
+    code { background: #243340; padding: 1px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>🛡️ Succubuster</h1>
+  <p class="sub">Removes suggestive engagement-bait from your X feed. Runs fully on your device — no images or data leave your browser.</p>
+
+  <div class="card" id="consent">
+    <h3 style="margin-top:0">Before you start</h3>
+    <p>Succubuster scans images already loaded in your X timeline and scores them with a small AI model that runs <strong>entirely inside your browser</strong>. Images are never uploaded anywhere. Nothing is sent to any server. You can blur or fully hide flagged posts, and restore any of them with one click.</p>
+    <button id="consentBtn">Got it — enable Succubuster</button>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div><label>Enabled</label><div class="hint">Master on/off switch.</div></div>
+      <input type="checkbox" id="enabled" />
+    </div>
+    <div class="row">
+      <div><label>On-device vision</label><div class="hint">Score images with the CLIP model. Off = text rules only.</div></div>
+      <input type="checkbox" id="useVision" />
+    </div>
+    <div class="row">
+      <div><label>Sensitivity</label><div class="hint">Higher hides more (and risks more false positives).</div></div>
+      <div><input type="range" id="sensitivity" min="0" max="100" /> <span class="pill" id="sensVal">50</span></div>
+    </div>
+    <div class="row">
+      <div><label>When a post is bait</label><div class="hint">Blur (click to reveal) or remove it entirely.</div></div>
+      <select id="mode">
+        <option value="blur">Blur</option>
+        <option value="hide">Hide</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">This session</h3>
+    <div class="stats">
+      <div><div class="stat" id="statHidden">0</div><div class="hint">hidden</div></div>
+      <div><div class="stat" id="statScanned">0</div><div class="hint">scanned</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div><label>Allowlisted accounts</label><div class="hint">Restored accounts are never hidden again.</div></div>
+      <button class="secondary" id="clearAllow">Clear</button>
+    </div>
+    <div class="allowlist" id="allowlist">(none)</div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
