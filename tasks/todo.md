@@ -54,5 +54,26 @@ to prove accuracy and the gap vs the text-only userscript. Projects 3-6 stay in 
 ## Blockers
 - **Anthropic API key** — required for the classifier. Nothing end-to-end works without it.
 
-## Review
-(to be filled in as work completes)
+## Review (2026-06-02, overnight session)
+
+**Pivot:** Michael said no Anthropic API — build/train our own, on-device. Architecture
+changed from "Claude-vision proxy backend" to a fully client-side classifier (text +
+CLIP zero-shot in an MV3 offscreen doc + a trained ONNX head). See STATUS.md.
+
+**Done:**
+- Monorepo + shared scoring; extension builds (esbuild) with content/background/offscreen/options.
+- CLIP zero-shot classifier (transformers.js, local models, WebGPU/WASM), tuned taxonomy.
+- Eval harness (49-image SFW labeled set): zero-shot AUC 0.917; per-category FP audit.
+- Trained logreg head on CLIP embeddings -> ONNX (5-fold CV AUC 0.922; ONNX==sklearn 1e-7).
+- Self-validating in-browser demo verified via Claude-in-Chrome: AUC 0.926, precision 1.00
+  at default sensitivity, recall tunable 0.38->0.56.
+- Linear updated (16 Done, Claude-proxy issues canceled), repo pushed.
+
+**Open:**
+- Wire trained head into runtime (zero-shot decides today; head ready).
+- Validate on a real X feed (manual unpacked load).
+- Grow labeled data + feedback flywheel to lift recall on the mild/illustration tail.
+
+**Lesson captured:** transformers.js `get_file_metadata` skips its local existence check
+when `localModelPath` is an http(s) URL, silently breaking tokenizer discovery. Use a
+relative path in web pages; the extension's chrome-extension:// scheme is unaffected.
